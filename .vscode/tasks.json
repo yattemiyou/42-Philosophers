@@ -1,0 +1,19 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc アクティブなファイルのビルド",
+            "command": "/usr/bin/make",
+            "args": [
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/philo"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "version": "2.0.0"
+}

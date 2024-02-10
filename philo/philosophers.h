@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/10 12:35:27 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/10 15:58:12 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 # define TRUE 1
 # define FALSE 0
 
 # define MSG01 "起動引数が不正です。"
+# define MSG02 "メモリの確保に失敗しました。"
+# define MSG03 "スレッドの生成に失敗しました。"
+# define MSG04 "スリーブに失敗しました。"
+# define MSG05 "スレッドの終了待ちに失敗しました。"
 
-typedef struct s_simulation	t_simulation;
-typedef struct s_mutex		t_mutex;
+typedef struct s_simulation		t_sim;
+typedef struct s_philosopher	t_philo;
+typedef struct s_mutex			t_mutex;
 
 struct s_simulation
 {
@@ -37,13 +43,29 @@ struct s_simulation
 	int64_t	start_time;
 };
 
+struct s_philosopher
+{
+	t_sim		*sim;
+
+	pthread_t	tid;
+	int			id;
+	int			lifetime;
+	int64_t		last_meal;
+};
+
 struct s_mutex
 {
 	pthread_mutex_t	*fork;
 };
 
 // simulation.c
-int		initialize(int argc, char const *argv[], t_simulation *sim);
-int64_t	get_simulation_time(void);
+int		initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos);
+void	finalize(t_sim *sim, t_philo *philos);
+int		start(t_sim *sim, t_philo *philos);
+int		wait(t_sim *sim, t_philo *philos);
+int64_t	get_time(void);
+
+// philosopher.c
+void	*run(void *arg);
 
 #endif

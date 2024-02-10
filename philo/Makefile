@@ -6,6 +6,8 @@ INCLUDE = -I.
 
 SRCDIR = ./
 SRCS = main.c
+SRCS += philosopher.c
+SRCS += simulation.c
 
 OBJS = $(addprefix $(SRCDIR),$(SRCS:%.c=%.o))
 

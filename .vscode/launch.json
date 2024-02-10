@@ -5,7 +5,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/philo/philo",
-            "args": [""],
+            "args": ["4", "410", "200", "200"],
             "cwd": "${workspaceFolder}/philo",
             "environment": [],
             "preLaunchTask": "C/C++: gcc アクティブなファイルのビルド",

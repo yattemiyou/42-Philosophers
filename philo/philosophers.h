@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/11 12:41:06 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/11 15:23:07 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ struct s_philosopher
 int		initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos);
 void	finalize(t_sim *sim, t_philo *philos);
 int		start(t_sim *sim, t_philo *philos);
-int		wait(t_sim *sim, t_philo *philos);
+int		sim_wait(t_sim *sim, t_philo *philos);
 int64_t	get_time(void);
 
 // philosopher.c

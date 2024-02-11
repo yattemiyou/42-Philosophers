@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:36:08 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/10 15:13:27 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/11 15:23:07 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char const *argv[])
 		return (1);
 	if (start(&sim, philos) == FALSE)
 		return (finalize(&sim, philos), 1);
-	if (wait(&sim, philos) == FALSE)
+	if (sim_wait(&sim, philos) == FALSE)
 		return (finalize(&sim, philos), 1);
 	return (finalize(&sim, philos), 0);
 }

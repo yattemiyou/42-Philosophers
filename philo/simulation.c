@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/11 12:50:31 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/11 15:23:07 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	start(t_sim *sim, t_philo *philos)
 	return (TRUE);
 }
 
-int	wait(t_sim *sim, t_philo *philos)
+int	sim_wait(t_sim *sim, t_philo *philos)
 {
 	int	i;
 

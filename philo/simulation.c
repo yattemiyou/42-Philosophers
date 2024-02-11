@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/10 16:02:55 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/11 12:50:31 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos)
 {
+	int	i;
+
 	if (argc != 5 && argc != 6)
 		return (printf("%s\n", MSG01), FALSE);
 	sim->number = atoi(argv[1]);
@@ -23,15 +25,27 @@ int	initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos)
 	if (argc == 6)
 		sim->times = atoi(argv[5]);
 
+	sim->fork = malloc(sim->number * sizeof(pthread_mutex_t));
+	if (sim->fork == NULL)
+		return (printf("%s\n", MSG02), FALSE);
+	i = 0;
+	while (i < sim->number)
+		pthread_mutex_init(&(sim->fork[i++]), NULL);
+
 	*philos = malloc(sim->number * sizeof(t_philo));
 	if (*philos == NULL)
-		return (printf("%s\n", MSG02), FALSE);
+		return (finalize(sim, *philos), printf("%s\n", MSG02), FALSE);
 	return (TRUE);
 }
 
 void	finalize(t_sim *sim, t_philo *philos)
 {
-	(void)sim;
+	int	i;
+
+	i = 0;
+	while (i < sim->number)
+		pthread_mutex_destroy(&(sim->fork[i++]));
+	free(sim->fork);
 	free(philos);
 }
 
@@ -45,8 +59,7 @@ int	start(t_sim *sim, t_philo *philos)
 	while (i < sim->number)
 	{
 		philos[i].sim = sim;
-		philos[i].id = i + 1;
-		philos[i].lifetime = sim->die;
+		philos[i].id = i;
 		philos[i].last_meal = sim->start_time;
 
 		void *arg = &(philos[i]);

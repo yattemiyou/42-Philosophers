@@ -6,11 +6,27 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/11 12:55:02 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/17 22:15:39 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	get_value(t_philo *philo, int *ptr, int *value)
+{
+	pthread_mutex_lock(&(philo->lock));
+	*value = *ptr;
+	pthread_mutex_unlock(&(philo->lock));
+	return (TRUE);
+}
+
+int	set_value(t_philo *philo, int *ptr, int value)
+{
+	pthread_mutex_lock(&(philo->lock));
+	*ptr = value;
+	pthread_mutex_unlock(&(philo->lock));
+	return (TRUE);
+}
 
 static int	do_something(t_philo *philo, char *something, int msec)
 {

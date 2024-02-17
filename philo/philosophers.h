@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/11 15:23:07 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/17 22:10:53 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,15 @@ struct s_simulation
 
 struct s_philosopher
 {
-	t_sim		*sim;
+	t_sim			*sim;
 
-	pthread_t	tid;
-	int			id;
-	int64_t		last_meal;
+	pthread_t		tid;
+	pthread_mutex_t	lock;
+
+	int				id;
+	int64_t			last_meal;
+	int				died;
+	int				termination;
 };
 
 // simulation.c
@@ -62,5 +66,7 @@ int64_t	get_time(void);
 
 // philosopher.c
 void	*run(void *arg);
+int		get_value(t_philo *philo, int *ptr, int *value);
+int		set_value(t_philo *philo, int *ptr, int value);
 
 #endif

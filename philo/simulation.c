@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/11 15:23:07 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/02/17 22:21:26 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,12 @@ int	start(t_sim *sim, t_philo *philos)
 	while (i < sim->number)
 	{
 		philos[i].sim = sim;
+		pthread_mutex_init(&(philos[i].lock), NULL);
+
 		philos[i].id = i;
 		philos[i].last_meal = sim->start_time;
+		philos[i].died = FALSE;
+		philos[i].termination = FALSE;
 
 		void *arg = &(philos[i]);
 

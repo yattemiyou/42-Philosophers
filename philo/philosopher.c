@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/17 22:15:39 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/05 21:57:14 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,18 @@ int	set_value(t_philo *philo, int *ptr, int value)
 	return (TRUE);
 }
 
-static int	do_something(t_philo *philo, char *something, int msec)
+static void	print_status(t_philo *philo, char *status)
+{
+	u_int32_t dt = get_time() - philo->sim->start_time;
+
+	printf("%u %d %s\n", dt, philo->id + 1, status);
+}
+
+static int	do_something(int msec)
 {
 	int64_t	start_time;
 
 	start_time = get_time();
-	printf("%zd %d is %s\n", (int64_t)(start_time - philo->sim->start_time), philo->id, something);
 	while (get_time() - start_time < msec)
 	{
 		if (usleep(100) == -1)
@@ -65,21 +71,23 @@ void	*run(void *arg)
 	while (get_time() - philo->last_meal < philo->sim->die)
 	{
 		pthread_mutex_lock(&(philo->sim->fork[first]));
-		printf("%zd %d has taken a fork\n", (int64_t)(get_time() - philo->sim->start_time), philo->id);
+		print_status(philo, "has taken a fork");
 
 		pthread_mutex_lock(&(philo->sim->fork[second]));
-		printf("%zd %d has taken a fork\n", (int64_t)(get_time() - philo->sim->start_time), philo->id);
+		print_status(philo, "has taken a fork");
 
-		do_something(philo, "eating", philo->sim->eat);
+		print_status(philo, "is eating");
+		do_something(philo->sim->eat);
 		philo->last_meal = get_time();
 
 		pthread_mutex_unlock(&(philo->sim->fork[first]));
 		pthread_mutex_unlock(&(philo->sim->fork[second]));
 
-		do_something(philo, "sleeping", philo->sim->sleep);
+		print_status(philo, "is sleeping");
+		do_something(philo->sim->sleep);
 
-		printf("%zd %d is thinking\n", (int64_t)(get_time() - philo->sim->start_time), philo->id);
+		print_status(philo, "is thinking");
 	}
-	printf("%zd %d died\n", get_time() - philo->sim->start_time, philo->id);
+	print_status(philo, "died");
 	return (NULL);
 }

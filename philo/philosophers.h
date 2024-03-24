@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 15:03:12 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 21:11:40 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ struct s_philosopher
 	pthread_mutex_t	lock;
 
 	int				id;
+	int				first;
+	int				second;
 	int64_t			last_meal;
-	int				died;
-	int				termination;
+	int				terminated;
 };
 
 // fork.c
 int		initialize_fork(t_sim *sim);
-int		take_fork(t_philo *philo, int first, int second);
-int		put_fork(t_philo *philo, int first, int second);
+void	get_available_fork(t_philo *philo);
+int		take_fork(t_philo *philo);
+int		put_fork(t_philo *philo);
 void	finalize_fork(t_sim *sim);
 
 // simulation.c
@@ -72,8 +74,8 @@ int64_t	get_time(void);
 
 // philosopher.c
 void	*run(void *arg);
-int		get_value(t_philo *philo, int *ptr, int *value);
-int		set_value(t_philo *philo, int *ptr, int value);
+int		is_terminated(t_philo *philo);
+void	terminate(t_philo *philo);
 
 // util.c
 void	print_status(t_philo *philo, char *status);

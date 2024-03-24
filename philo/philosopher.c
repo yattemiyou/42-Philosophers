@@ -6,44 +6,45 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/05 21:57:14 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 21:31:26 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	get_value(t_philo *philo, int *ptr, int *value)
+int	is_terminated(t_philo *philo)
+{
+	int	ret;
+
+	pthread_mutex_lock(&(philo->lock));
+	ret = philo->terminated;
+	pthread_mutex_unlock(&(philo->lock));
+	return (ret);
+}
+
+void	terminate(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->lock));
-	*value = *ptr;
+	philo->terminated = TRUE;
 	pthread_mutex_unlock(&(philo->lock));
-	return (TRUE);
 }
 
-int	set_value(t_philo *philo, int *ptr, int value)
+static int	do_something(t_philo *philo, int msec)
 {
-	pthread_mutex_lock(&(philo->lock));
-	*ptr = value;
-	pthread_mutex_unlock(&(philo->lock));
-	return (TRUE);
-}
-
-static void	print_status(t_philo *philo, char *status)
-{
-	u_int32_t dt = get_time() - philo->sim->start_time;
-
-	printf("%u %d %s\n", dt, philo->id + 1, status);
-}
-
-static int	do_something(int msec)
-{
+	int64_t	now;
 	int64_t	start_time;
 
-	start_time = get_time();
-	while (get_time() - start_time < msec)
+	now = get_time();
+	start_time = now;
+	while (now - start_time < msec)
 	{
+		if (is_terminated(philo))
+			return (FALSE);
+		if (now - philo->last_meal >= philo->sim->die)
+			return (print_status(philo, "died"), FALSE);
 		if (usleep(100) == -1)
 			return (printf("%s\n", MSG04), FALSE);
+		now = get_time();
 	}
 	return (TRUE);
 }
@@ -53,41 +54,22 @@ void	*run(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-
-	int first;
-	int second;
-
-	if (philo->id % 2)
+	while (TRUE)
 	{
-		first = philo->id;
-		second = (philo->id - 1 + philo->sim->number) % philo->sim->number;
-	}
-	else
-	{
-		first = (philo->id - 1 + philo->sim->number) % philo->sim->number;
-		second = philo->id;
-	}
-
-	while (get_time() - philo->last_meal < philo->sim->die)
-	{
-		pthread_mutex_lock(&(philo->sim->fork[first]));
-		print_status(philo, "has taken a fork");
-
-		pthread_mutex_lock(&(philo->sim->fork[second]));
-		print_status(philo, "has taken a fork");
-
+		take_fork(philo);
 		print_status(philo, "is eating");
-		do_something(philo->sim->eat);
+		if (do_something(philo, philo->sim->eat) == FALSE)
+		{
+			put_fork(philo);
+			break ;
+		}
 		philo->last_meal = get_time();
-
-		pthread_mutex_unlock(&(philo->sim->fork[first]));
-		pthread_mutex_unlock(&(philo->sim->fork[second]));
-
+		put_fork(philo);
 		print_status(philo, "is sleeping");
-		do_something(philo->sim->sleep);
-
+		if (do_something(philo, philo->sim->sleep) == FALSE)
+			break ;
 		print_status(philo, "is thinking");
 	}
-	print_status(philo, "died");
+	terminate(philo);
 	return (NULL);
 }

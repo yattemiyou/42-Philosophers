@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:46:55 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 15:04:07 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 21:06:56 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,36 @@ int	initialize_fork(t_sim *sim)
 	return (TRUE);
 }
 
-int	take_fork(t_philo *philo, int first, int second)
+void	get_available_fork(t_philo *philo)
 {
-	if (pthread_mutex_lock(&(philo->sim->fork[first])) != 0)
+	if (philo->id % 2)
+	{
+		philo->first = philo->id;
+		philo->second = (philo->id + 1) % philo->sim->number;
+	}
+	else
+	{
+		philo->first = (philo->id + 1) % philo->sim->number;
+		philo->second = philo->id;
+	}
+}
+
+int	take_fork(t_philo *philo)
+{
+	if (pthread_mutex_lock(&(philo->sim->fork[philo->first])) != 0)
 		return (FALSE);
 	print_status(philo, "has taken a fork");
-	if (pthread_mutex_lock(&(philo->sim->fork[second])) != 0)
+	if (pthread_mutex_lock(&(philo->sim->fork[philo->second])) != 0)
 		return (FALSE);
 	print_status(philo, "has taken a fork");
 	return (TRUE);
 }
 
-int	put_fork(t_philo *philo, int first, int second)
+int	put_fork(t_philo *philo)
 {
-	if (pthread_mutex_unlock(&(philo->sim->fork[second])) != 0)
+	if (pthread_mutex_unlock(&(philo->sim->fork[philo->second])) != 0)
 		return (FALSE);
-	if (pthread_mutex_unlock(&(philo->sim->fork[first])) != 0)
+	if (pthread_mutex_unlock(&(philo->sim->fork[philo->first])) != 0)
 		return (FALSE);
 	return (TRUE);
 }

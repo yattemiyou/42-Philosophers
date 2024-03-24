@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 14:03:42 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 15:03:12 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,8 @@ int64_t	get_time(void);
 void	*run(void *arg);
 int		get_value(t_philo *philo, int *ptr, int *value);
 int		set_value(t_philo *philo, int *ptr, int value);
+
+// util.c
+void	print_status(t_philo *philo, char *status);
 
 #endif

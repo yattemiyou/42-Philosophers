@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:46:55 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 14:02:06 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 15:04:07 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	take_fork(t_philo *philo, int first, int second)
 {
 	if (pthread_mutex_lock(&(philo->sim->fork[first])) != 0)
 		return (FALSE);
+	print_status(philo, "has taken a fork");
 	if (pthread_mutex_lock(&(philo->sim->fork[second])) != 0)
 		return (FALSE);
+	print_status(philo, "has taken a fork");
 	return (TRUE);
 }
 

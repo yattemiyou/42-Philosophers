@@ -9,6 +9,7 @@ SRCS = main.c
 SRCS += fork.c
 SRCS += philosopher.c
 SRCS += simulation.c
+SRCS += util.c
 
 OBJS = $(addprefix $(SRCDIR),$(SRCS:%.c=%.o))
 

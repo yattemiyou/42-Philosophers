@@ -6,6 +6,7 @@ INCLUDE = -I.
 
 SRCDIR = ./
 SRCS = main.c
+SRCS += fork.c
 SRCS += philosopher.c
 SRCS += simulation.c
 

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/02/17 22:10:53 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 14:03:42 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ struct s_philosopher
 	int				died;
 	int				termination;
 };
+
+// fork.c
+int		initialize_fork(t_sim *sim);
+int		take_fork(t_philo *philo, int first, int second);
+int		put_fork(t_philo *philo, int first, int second);
+void	finalize_fork(t_sim *sim);
 
 // simulation.c
 int		initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos);

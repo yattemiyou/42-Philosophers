@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 21:11:40 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/24 21:52:28 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos);
 void	finalize(t_sim *sim, t_philo *philos);
 int		start(t_sim *sim, t_philo *philos);
 int		sim_wait(t_sim *sim, t_philo *philos);
-int64_t	get_time(void);
 
 // philosopher.c
 void	*run(void *arg);
@@ -78,6 +77,7 @@ int		is_terminated(t_philo *philo);
 void	terminate(t_philo *philo);
 
 // util.c
+int64_t	get_time(void);
 void	print_status(t_philo *philo, char *status);
 
 #endif

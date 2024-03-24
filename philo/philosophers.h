@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 21:52:28 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 07:51:38 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,16 @@
 
 typedef struct s_simulation		t_sim;
 typedef struct s_philosopher	t_philo;
-typedef struct s_mutex			t_mutex;
 
 struct s_simulation
 {
-	int		number;
-	int		die;
-	int		eat;
-	int		sleep;
-	int		times;
-
+	int				number;
+	int				die;
+	int				eat;
+	int				sleep;
+	int				times;
 	pthread_mutex_t	*fork;
-	int64_t	start_time;
+	int64_t			start_time;
 };
 
 struct s_philosopher
@@ -69,7 +67,6 @@ void	finalize_fork(t_sim *sim);
 int		initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos);
 void	finalize(t_sim *sim, t_philo *philos);
 int		start(t_sim *sim, t_philo *philos);
-int		sim_wait(t_sim *sim, t_philo *philos);
 
 // philosopher.c
 void	*run(void *arg);

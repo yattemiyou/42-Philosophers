@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:59:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 06:34:28 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 08:44:55 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int64_t	get_time(void)
 
 void	print_status(t_philo *philo, char *status)
 {
-	u_int32_t	delta_t;
+	static pthread_mutex_t	lock = PTHREAD_MUTEX_INITIALIZER;
+	u_int32_t				delta_t;
 
 	delta_t = get_time() - philo->sim->start_time;
+	pthread_mutex_lock(&lock);
 	printf("%u %d %s\n", delta_t, philo->id + 1, status);
+	pthread_mutex_unlock(&lock);
 }

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 08:57:17 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 09:13:05 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos)
 	sim->die = atoi(argv[2]);
 	sim->eat = atoi(argv[3]);
 	sim->sleep = atoi(argv[4]);
+	sim->times = -1;
 	if (argc == 6)
 		sim->times = atoi(argv[5]);
 	if (initialize_fork(sim) == FALSE)

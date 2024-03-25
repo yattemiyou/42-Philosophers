@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 18:08:03 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 21:48:14 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	do_something(t_philo *philo, int msec)
 		if (is_terminated(philo))
 			return (FALSE);
 		if (now - philo->last_meal >= philo->sim->die)
-			return (print_status(philo, "died"), FALSE);
+			return (print_status(philo, "died", TRUE), FALSE);
 		if (usleep(100) == -1)
 			return (printf("%s\n", MSG04), FALSE);
 		now = get_time();
@@ -59,7 +59,7 @@ void	*run(void *arg)
 	while (TRUE)
 	{
 		take_fork(philo);
-		print_status(philo, "is eating");
+		print_status(philo, "is eating", FALSE);
 		if (do_something(philo, philo->sim->eat) == FALSE)
 		{
 			put_fork(philo);
@@ -69,10 +69,10 @@ void	*run(void *arg)
 		put_fork(philo);
 		if (philo->sim->times > 0 && ++philo->meals >= philo->sim->times)
 			break ;
-		print_status(philo, "is sleeping");
+		print_status(philo, "is sleeping", FALSE);
 		if (do_something(philo, philo->sim->sleep) == FALSE)
 			break ;
-		print_status(philo, "is thinking");
+		print_status(philo, "is thinking", FALSE);
 		usleep(100);
 	}
 	terminate(philo);

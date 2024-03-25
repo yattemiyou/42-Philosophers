@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 08:57:09 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 21:47:20 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	terminate(t_philo *philo);
 
 // util.c
 int64_t	get_time(void);
-void	print_status(t_philo *philo, char *status);
+void	print_status(t_philo *philo, char *status, int died);
 
 #endif

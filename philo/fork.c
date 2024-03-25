@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:46:55 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/24 21:06:56 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 17:07:48 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	initialize_fork(t_sim *sim)
 
 void	get_available_fork(t_philo *philo)
 {
-	if (philo->id % 2)
+	if (philo->id % 2 || philo->id == philo->sim->number - 1)
 	{
 		philo->first = philo->id;
 		philo->second = (philo->id + 1) % philo->sim->number;

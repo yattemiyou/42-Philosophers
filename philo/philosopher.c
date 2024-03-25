@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 21:48:14 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 23:06:08 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	*run(void *arg)
 		}
 		philo->last_meal = get_time();
 		put_fork(philo);
+		print_status(philo, "is sleeping", FALSE);
 		if (philo->sim->times > 0 && ++philo->meals >= philo->sim->times)
 			break ;
-		print_status(philo, "is sleeping", FALSE);
 		if (do_something(philo, philo->sim->sleep) == FALSE)
 			break ;
 		print_status(philo, "is thinking", FALSE);

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 18:03:23 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 18:08:03 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	*run(void *arg)
 		if (do_something(philo, philo->sim->sleep) == FALSE)
 			break ;
 		print_status(philo, "is thinking");
-		usleep(1);
+		usleep(100);
 	}
 	terminate(philo);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 09:16:03 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 17:39:23 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	*run(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 || philo->id == philo->sim->number - 1)
+		usleep(10);
 	while (TRUE)
 	{
 		take_fork(philo);

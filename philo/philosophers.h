@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 07:51:38 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 08:57:09 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ struct s_philosopher
 	int				first;
 	int				second;
 	int64_t			last_meal;
+	int				meals;
 	int				terminated;
 };
 

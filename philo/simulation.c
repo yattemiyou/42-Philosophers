@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 07:42:18 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/25 08:57:17 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	start(t_sim *sim, t_philo *philos)
 	{
 		philo = &(philos[i]);
 		philo->last_meal = sim->start_time;
+		philo->meals = 0;
 		if (pthread_create(&(philo->tid), NULL, run, philo) != 0)
 			return (printf("%s\n", MSG03), FALSE);
 		i++;

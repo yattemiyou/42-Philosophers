@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 18:43:41 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 19:47:06 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	get_param(int argc, char const *argv[], t_sim *sim)
 		sim->times = ft_atoi(argv[5]);
 		if (sim->times < 0)
 			return (FALSE);
+		if (sim->times == 0)
+			sim->number = 0;
 	}
 	return (TRUE);
 }

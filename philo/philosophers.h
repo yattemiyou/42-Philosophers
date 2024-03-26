@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 18:28:40 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 19:50:46 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ struct s_simulation
 	int				times;
 	pthread_mutex_t	*fork;
 	int64_t			start_time;
+	pthread_mutex_t	start_line;
 };
 
 struct s_philosopher

@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 19:47:06 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 19:56:30 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos)
 		return (printf("%s\n", MSG01), FALSE);
 	if (initialize_fork(sim) == FALSE)
 		return (FALSE);
+	pthread_mutex_init(&sim->start_line, NULL);
 	*philos = malloc(sim->number * sizeof(t_philo));
 	if (*philos == NULL)
 		return (finalize(sim, *philos), printf("%s\n", MSG02), FALSE);
@@ -82,6 +83,7 @@ void	finalize(t_sim *sim, t_philo *philos)
 		free(philos);
 	}
 	finalize_fork(sim);
+	pthread_mutex_destroy(&sim->start_line);
 }
 
 int	start(t_sim *sim, t_philo *philos)
@@ -89,6 +91,7 @@ int	start(t_sim *sim, t_philo *philos)
 	t_philo	*philo;
 	int		i;
 
+	pthread_mutex_lock(&sim->start_line);
 	sim->start_time = get_time();
 	i = 0;
 	while (i < sim->number)
@@ -100,5 +103,6 @@ int	start(t_sim *sim, t_philo *philos)
 			return (printf("%s\n", MSG03), FALSE);
 		i++;
 	}
+	pthread_mutex_unlock(&sim->start_line);
 	return (TRUE);
 }

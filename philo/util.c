@@ -6,11 +6,29 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:59:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 21:52:58 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 18:26:54 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+#include <limits.h>
+
+int	ft_atoi(const char *nptr)
+{
+	int64_t	ret;
+
+	ret = 0;
+	while (*nptr)
+	{
+		if (*nptr < '0' || *nptr > '9')
+			return (-1);
+		ret = ret * 10 + (*nptr++ - '0');
+		if (ret > INT_MAX)
+			return (-1);
+	}
+	return (ret);
+}
 
 int64_t	get_time(void)
 {

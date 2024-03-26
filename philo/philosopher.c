@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 14:41:10 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 15:44:10 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	terminate(t_philo *philo)
 	pthread_mutex_unlock(&(philo->lock));
 }
 
-static int	do_something(t_philo *philo, int msec)
+int	do_something(t_philo *philo, int msec)
 {
 	int64_t	now;
 	int64_t	start_time;
@@ -58,7 +58,8 @@ void	*run(void *arg)
 		usleep(10);
 	while (TRUE)
 	{
-		take_fork(philo);
+		if (take_fork(philo) == FALSE)
+			break ;
 		print_status(philo, "is eating", FALSE);
 		if (do_something(philo, philo->sim->eat) == FALSE)
 		{

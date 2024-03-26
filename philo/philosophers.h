@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 14:03:40 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 15:33:48 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		start(t_sim *sim, t_philo *philos);
 
 // philosopher.c
 void	*run(void *arg);
+int		do_something(t_philo *philo, int msec);
 int		is_terminated(t_philo *philo);
 void	terminate(t_philo *philo);
 

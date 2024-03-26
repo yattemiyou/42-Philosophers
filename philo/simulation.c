@@ -6,25 +6,44 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 18:31:31 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 18:43:41 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+static int	get_param(int argc, char const *argv[], t_sim *sim)
+{
+	if (argc != 5 && argc != 6)
+		return (FALSE);
+	sim->number = ft_atoi(argv[1]);
+	if (sim->number < 0)
+		return (FALSE);
+	sim->die = ft_atoi(argv[2]);
+	if (sim->die < 0)
+		return (FALSE);
+	sim->eat = ft_atoi(argv[3]);
+	if (sim->eat < 0)
+		return (FALSE);
+	sim->sleep = ft_atoi(argv[4]);
+	if (sim->sleep < 0)
+		return (FALSE);
+	sim->times = -1;
+	if (argc == 6)
+	{
+		sim->times = ft_atoi(argv[5]);
+		if (sim->times < 0)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 int	initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos)
 {
 	int	i;
 
-	if (argc != 5 && argc != 6)
+	if (get_param(argc, argv, sim) == FALSE)
 		return (printf("%s\n", MSG01), FALSE);
-	sim->number = ft_atoi(argv[1]);
-	sim->die = ft_atoi(argv[2]);
-	sim->eat = ft_atoi(argv[3]);
-	sim->sleep = ft_atoi(argv[4]);
-	sim->times = -1;
-	if (argc == 6)
-		sim->times = ft_atoi(argv[5]);
 	if (initialize_fork(sim) == FALSE)
 		return (FALSE);
 	*philos = malloc(sim->number * sizeof(t_philo));

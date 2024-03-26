@@ -46,19 +46,20 @@ void	finalize(t_sim *sim, t_philo *philos)
 {
 	int	i;
 
-	finalize_fork(sim);
-	if (philos == NULL)
-		return ;
-	i = 0;
-	while (i < sim->number)
+	if (philos != NULL)
 	{
-		terminate(&philos[i]);
-		if (pthread_join(philos[i].tid, NULL) != 0)
-			printf("%s\n", MSG05);
-		pthread_mutex_destroy(&(philos[i].lock));
-		i++;
+		i = 0;
+		while (i < sim->number)
+		{
+			terminate(&philos[i]);
+			if (pthread_join(philos[i].tid, NULL) != 0)
+				printf("%s\n", MSG05);
+			pthread_mutex_destroy(&(philos[i].lock));
+			i++;
+		}
+		free(philos);
 	}
-	free(philos);
+	finalize_fork(sim);
 }
 
 int	start(t_sim *sim, t_philo *philos)

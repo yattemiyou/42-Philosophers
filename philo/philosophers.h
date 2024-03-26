@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:03:26 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 21:47:20 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 14:03:40 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ struct s_philosopher
 	int64_t			last_meal;
 	int				meals;
 	int				terminated;
+	int				is_full;
 };
 
 // fork.c

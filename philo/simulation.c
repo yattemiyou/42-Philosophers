@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/25 09:13:05 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 14:13:18 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	initialize(int argc, char const *argv[], t_sim *sim, t_philo **philos)
 		pthread_mutex_init(&((*philos)[i].lock), NULL);
 		(*philos)[i].id = i;
 		get_available_fork(&((*philos)[i]));
-		(*philos)[i++].terminated = FALSE;
+		(*philos)[i].terminated = FALSE;
+		(*philos)[i++].is_full = FALSE;
 	}
 	return (TRUE);
 }

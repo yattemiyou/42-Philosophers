@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:15:47 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 19:56:30 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 20:27:28 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	get_param(int argc, char const *argv[], t_sim *sim)
 		if (sim->times == 0)
 			sim->number = 0;
 	}
+	sim->interruption = FALSE;
 	return (TRUE);
 }
 
@@ -100,9 +101,13 @@ int	start(t_sim *sim, t_philo *philos)
 		philo->last_meal = sim->start_time;
 		philo->meals = 0;
 		if (pthread_create(&(philo->tid), NULL, run, philo) != 0)
-			return (printf("%s\n", MSG03), FALSE);
+		{
+			printf("%s\n", MSG03);
+			sim->interruption = TRUE;
+			break ;
+		}
 		i++;
 	}
 	pthread_mutex_unlock(&sim->start_line);
-	return (TRUE);
+	return (!sim->interruption);
 }

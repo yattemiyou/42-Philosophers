@@ -6,7 +6,7 @@
 /*   By: anonymous <anonymous@student.42tokyo.jp    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:07:24 by anonymous         #+#    #+#             */
-/*   Updated: 2024/03/26 15:44:10 by anonymous        ###   ########.fr       */
+/*   Updated: 2024/03/26 20:29:16 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	*run(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&(philo->sim->start_line));
+	pthread_mutex_unlock(&(philo->sim->start_line));
+	if (philo->sim->interruption)
+		return (NULL);
 	if (philo->id % 2 || philo->id == philo->sim->number - 1)
 		usleep(10);
 	while (TRUE)

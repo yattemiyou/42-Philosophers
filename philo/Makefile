@@ -36,6 +36,7 @@ re: fclean all
 valgrind: $(NAME)
 	valgrind --leak-check=full ./$(NAME) 4 310 200 100
 
+# （注）実行前に「sudo sysctl kernel.randomize_va_space=0」が必要
 tsan: CFLAGS += -g -fsanitize=thread
 tsan: LDFLAGS += -ltsan
 tsan: re

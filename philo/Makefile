@@ -36,8 +36,12 @@ re: fclean all
 valgrind: $(NAME)
 	valgrind --leak-check=full ./$(NAME) 4 310 200 100
 
-debug: CFLAGS += -g
-debug: LDFLAGS += -fsanitize=address
-debug: re
+tsan: CFLAGS += -g -fsanitize=thread
+tsan: LDFLAGS += -ltsan
+tsan: re
 
-.PHONY: all clean fclean re valgrind debug
+leak: CFLAGS += -g
+leak: LDFLAGS += -fsanitize=address
+leak: re
+
+.PHONY: all clean fclean re valgrind tsan leak

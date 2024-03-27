@@ -15,12 +15,12 @@ OBJS = $(addprefix $(SRCDIR),$(SRCS:%.c=%.o))
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -g
+LDFLAGS =
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) $^ $(LDFLAGS) -o $@
 
 %.o: %.c
 	$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $*.o
@@ -36,4 +36,8 @@ re: fclean all
 valgrind: $(NAME)
 	valgrind --leak-check=full ./$(NAME) 4 310 200 100
 
-.PHONY: all clean fclean re valgrind
+debug: CFLAGS += -g
+debug: LDFLAGS += -fsanitize=address
+debug: re
+
+.PHONY: all clean fclean re valgrind debug
